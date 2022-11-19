@@ -8,6 +8,7 @@ import { loginValidation, registrationValidation } from './validations.js';
 import handleValidationErrors from './utils/handleValidationErrors.js';
 import { getAllPizzas, getSortedName, getSortedPriceLow } from './controllers/PizzasController.js';
 import checkAuth from './utils/checkAuth.js';
+import { addPizzaToCart } from './controllers/CartController.js';
 
 mongoose
   .connect('mongodb+srv://admin:1234@pizza.j0fj3ds.mongodb.net/users?retryWrites=true&w=majority')
@@ -37,18 +38,20 @@ app.use(express.json()); //Для того чтобы наше приложен�
 app.use('/uploads', express.static('uploads')); // Здесь говорим если придет гет запрос пом=смотри есть ли в этой папке такой файл
 
 app.post('/auth/login', loginValidation, handleValidationErrors, UserControllers.login);
-app.get('/auth/me', checkAuth, UserControllers.getMe);
-
-app.post('/pizzas', getAllPizzas);
-app.get('/pizzas/sort-name', getSortedName);
-app.get('/pizzas/sort-price-low', getSortedPriceLow);
-
 app.post(
   '/auth/register',
   registrationValidation,
   handleValidationErrors,
   UserControllers.register,
 );
+app.get('/auth/me', checkAuth, UserControllers.getMe);
+
+app.post('/pizzas', getAllPizzas);
+app.get('/pizzas/sort-name', getSortedName);
+app.get('/pizzas/sort-price-low', getSortedPriceLow);
+
+app.patch('/add-pizza', checkAuth, addPizzaToCart);
+
 //
 app.listen(process.env.PORT || 4444, (err) => {
   if (err) {

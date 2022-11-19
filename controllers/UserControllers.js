@@ -13,6 +13,7 @@ export const register = async (req, res) => {
       passwordHash: hash,
       fullName: req.body.fullName,
       avatarUrl: req.body.avatarUrl,
+      cart: {},
     }); // здесь мы создали новую модель пользователя для бд
     const user = await doc.save();
     const { passwordHash, ...userData } = user._doc;

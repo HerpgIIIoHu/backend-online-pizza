@@ -15,6 +15,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    cart: {
+      type: Array,
+    },
+    orders: {
+      type: Array,
+    },
     avatarUrl: String,
   },
   {
