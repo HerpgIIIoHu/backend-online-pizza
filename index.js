@@ -51,6 +51,7 @@ app.get('/pizzas/sort-name', getSortedName);
 app.get('/pizzas/sort-price-low', getSortedPriceLow);
 
 app.patch('/add-pizza', checkAuth, addPizzaToCart);
+// app.get('/cart', checkAuth, getCartItems)
 
 //
 app.listen(process.env.PORT || 4444, (err) => {
